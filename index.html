@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neo On The Moon</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #000;
+            font-family: Arial, sans-serif;
+        }
+
+        #header {
+            position: absolute;
+            top: 20px;
+            width: 100%;
+            text-align: center;
+            font-size: 3rem;
+            font-weight: bold;
+            animation: colorChange 3s infinite;
+        }
+
+        @keyframes colorChange {
+            0% { color: red; }
+            25% { color: blue; }
+            50% { color: green; }
+            75% { color: yellow; }
+            100% { color: red; }
+        }
+
+        .circle {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: white;
+        }
+
+        .ball {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: #ff0000;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div id="header">NEO ON THE MOON</div>
+    <div class="circle"></div>
+    <div class="ball" id="ball"></div>
+
+    <script>
+        const ball = document.getElementById('ball');
+        let ballX = 100;
+        let ballY = 100;
+        let ballSpeedX = 3;
+        let ballSpeedY = 3;
+
+        function updateBallPosition() {
+            const rect = document.body.getBoundingClientRect();
+
+            ballX += ballSpeedX;
+            ballY += ballSpeedY;
+
+            if (ballX <= 0 || ballX + ball.offsetWidth >= rect.width) {
+                ballSpeedX = -ballSpeedX;
+            }
+
+            if (ballY <= 0 || ballY + ball.offsetHeight >= rect.height) {
+                ballSpeedY = -ballSpeedY;
+            }
+
+            ball.style.transform = `translate(${ballX}px, ${ballY}px)`;
+        }
+
+        function animate() {
+            updateBallPosition();
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
+</body>
+</html>
